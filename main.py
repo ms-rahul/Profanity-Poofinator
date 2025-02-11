@@ -15,6 +15,11 @@ intents.message_content = True  # Allow reading message content
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
+async def on_message_delete(message):
+    if message.content and not message.author.bot:  # Ignore bot messages
+        print(f"Message deleted: {message.content} (Author: {message.author.name})")
+
+@bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
